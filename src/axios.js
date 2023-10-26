@@ -20,3 +20,7 @@ export function getCommentsByArticleId(id) {
 export const votingOnArticles= async (id, value) => {
     return newsAPI.patch(`/articles/${id}`, {inc_votes: value})
 }
+
+export const userLogin = async (username) => {
+    return newsAPI.get('/users')
+}

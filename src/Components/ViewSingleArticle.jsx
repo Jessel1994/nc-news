@@ -96,6 +96,7 @@ function CommentSection({commentLoading, setCommentLoading, setComments, comment
     return commentLoading ? <h2>Loading...</h2> : (
         <section className="comments-section">
             <h2>COMMENTS</h2>
+            <PostComments />
             <ul className="comment-list">
                 {comments.map((comment) => {
                     const timestamp = comment.created_at
@@ -124,5 +125,26 @@ function CommentSection({commentLoading, setCommentLoading, setComments, comment
         
     )
 }
+ function PostComments() {
+    const [ commentToBePosted, setcommentToBePosted ] = useState({item_name:'example name', img_url:'example_url', description:'', price: 0, category_name:''})
+    return (
+        <div>
+            <form>
+                <label>
+                    UserName:
+                <input></input>
+                </label> <br></br>
+                
+                <label>
+                    Comment:
+                <input type="textarea"></input><br></br>
+                </label>
+                <button>Post Comment</button>
+            </form>
+        </div>
+    )
+    
+ }
+
 
 export default ViewSingleArticle;
