@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { getAllArticles } from "../../axios"
+import { getAllArticles, getArticleByArticleId } from "../../axios"
 import { Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 function AllArticles() {
     const [articleList, setArticleList] = useState([
@@ -43,7 +44,7 @@ function ArticleFinder({setArticleList, articleList}) {
     useEffect(() => {
      displayAllArticles()  
     }, [])
-    return(
+    return isLoading ? (<p>Loading...</p>) :(
         <div>
             <h2>Search Articles</h2>
             <form>
@@ -79,6 +80,7 @@ function ListArticles({articleList }) {
                                 <p>Author: {article.author}</p>
 
                                 <p>Comments: {article.comment_count}</p>
+                                <Link className="read-article-button" to={`/articles/${article.article_id}`}>Read Article</Link>
 
                             </li>
 
