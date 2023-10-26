@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCommentsByArticleId, getArticleByArticleId } from "../axios";
 import { useParams } from "react-router-dom";
+import Votes from "./Head/Votes";
 
 function ViewSingleArticle() {
     const routeParams = useParams()
@@ -55,17 +56,20 @@ function ViewSingleArticle() {
                     <p className="article-body">{viewArticle.body}</p>
                     <p>Uploaded: {viewArticle.created_at}</p>
                     <p>Author: {viewArticle.author}</p>
+                    <Votes votes={viewArticle.votes} article_id={routeParams.article_id}/>
 
                     
                                 
 
                 </li>
                 
+                
             </article>
             
 
                 
         </ul>
+        
         
        
     </article>

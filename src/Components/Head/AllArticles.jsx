@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllArticles, getArticleByArticleId } from "../../axios"
 import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom"
+import Votes from "./Votes"
 
 function AllArticles() {
     const [articleList, setArticleList] = useState([
@@ -82,6 +83,7 @@ function ListArticles({articleList }) {
                                 <img className="article-image" src={article.article_img_url} alt="article picture"/>
                                 <p>Uploaded: {formattedDate}</p>
                                 <p>Author: {article.author}</p>
+                                <Votes votes={article.votes} article_id={article.article_id}/>
 
                                 <p>Comments: {article.comment_count}</p>
                                 <Link className="read-article-button" to={`/articles/${article.article_id}`}>Read Article</Link>
