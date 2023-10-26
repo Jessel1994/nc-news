@@ -45,7 +45,7 @@ function ArticleFinder({setArticleList, articleList}) {
      displayAllArticles()  
     }, [])
     return isLoading ? (<p>Loading...</p>) :(
-        <div>
+        <div className="search-articles">
             <h2>Search Articles</h2>
             <form>
                 <input></input>
@@ -67,6 +67,10 @@ function ListArticles({articleList }) {
             <ul className="articles-list">
                 
                 {articleList.map((article) => {
+                     const timestamp = article.created_at
+                     const date = new Date(timestamp)
+                     const options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+                     const formattedDate = date.toLocaleDateString('en-GB', options)
                     
                     return (
                         <div key={article.article_id}>
@@ -76,7 +80,7 @@ function ListArticles({articleList }) {
                                 <h4>{article.title}</h4>
                                 <p>Topic: {article.topic}</p>
                                 <img className="article-image" src={article.article_img_url} alt="article picture"/>
-                                <p>Uploaded: {article.created_at}</p>
+                                <p>Uploaded: {formattedDate}</p>
                                 <p>Author: {article.author}</p>
 
                                 <p>Comments: {article.comment_count}</p>

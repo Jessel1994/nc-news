@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 
 function Header() {
     return (
-        <header>
+        <header className='header-section'>
             <h1>NC NEWS APP</h1>
             <nav>
                 <Link to="/">HOME</Link>
