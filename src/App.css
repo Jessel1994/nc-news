@@ -5,38 +5,32 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.article {
+  background-color: blueviolet;
+  border: solid 1px black;
+  border-radius: 7%;
+  padding: 0.3rem;
+  margin: 1rem;
+  color: whitesmoke;
+  max-width: 75vw;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.article-image {
+  max-width: 75vw;
+  max-width: auto;
+  border: 0.5px solid black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.articles-list {
+  list-style-type: none;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.show-articles {
+  
+    background: linear-gradient(to bottom, #3498db, #2980b9);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  
+  
+  
 }
