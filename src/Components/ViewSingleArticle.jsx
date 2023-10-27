@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { getCommentsByArticleId, getArticleByArticleId } from "../axios";
 import { useParams } from "react-router-dom";
 import Votes from "./Head/Votes";
+import { postComment } from "../axios";
 
-function ViewSingleArticle() {
+function ViewSingleArticle({user}) {
     const routeParams = useParams()
     const [comments, setComments] = useState([{
         "comment_id": 124,
@@ -73,14 +74,14 @@ function ViewSingleArticle() {
         
        
     </article>
-    <CommentSection isLoading={isLoading} setComments={setComments} setCommentLoading={setCommentLoading} comments={comments} routeParams={routeParams} />
+    <CommentSection isLoading={isLoading} setComments={setComments} setCommentLoading={setCommentLoading} comments={comments} routeParams={routeParams} user={user} />
    </main> 
   
     )
    
 }
 
-function CommentSection({commentLoading, setCommentLoading, setComments, comments, routeParams}) {
+function CommentSection({commentLoading, setCommentLoading, setComments, comments, routeParams, user}) {
     
     const commentViewer = async () => {
         setCommentLoading(true)
@@ -96,6 +97,14 @@ function CommentSection({commentLoading, setCommentLoading, setComments, comment
     return commentLoading ? <h2>Loading...</h2> : (
         <section className="comments-section">
             <h2>COMMENTS</h2>
+            <div className='user-welcome'>
+                
+                <p>You are logged in as: {user.username} </p>
+                <img className='avatar' src={user.avatar_url}/>
+                
+
+            </div>
+            <PostComments user={user} setComments={setComments} comments={comments} routeParams={routeParams}/>
             <ul className="comment-list">
                 {comments.map((comment) => {
                     const timestamp = comment.created_at
@@ -124,5 +133,63 @@ function CommentSection({commentLoading, setCommentLoading, setComments, comment
         
     )
 }
+function PostComments({ user, setComments, routeParams }) {
+    const [commentToBePosted, setCommentToBePosted] = useState({ username: "", body: "" });
+    const [isPosting, setIsPosting] = useState(false);
+    const [postSuccess, setPostSuccess] = useState(false);
+    const [postError, setPostError] = useState(null);
+  
+    const handleCommentButton = async () => {
+        
+      setIsPosting(true);
+      
+      
+        
+      try {
+       
+        const response = await postComment(routeParams.article_id, {username: user.username, body: commentToBePosted.body});
+  
+       
+        setComments([response.data.comment, ...comments]);
+        setPostSuccess(true);
+        setPostError(null);
+        setIsPosting(false);
+      } catch (error) {
+        
+        setPostSuccess(false);
+        setPostError("Error posting comment please try again :(");
+      } 
+    };
+  
+    return (
+      <div >
+        <form className="post-comments-form" onSubmit={handleCommentButton}>
+          <label htmlFor="post-comment">
+            Comment:
+            <textarea
+              id="post-comment"
+              placeholder="Enter Comment Here"
+              name="comment"
+              onChange={(e) => {
+                e.preventDefault()
+                setCommentToBePosted({username: user.username, body: e.target.value})
+
+              }}
+              
+              
+            />
+          </label>
+          <button className="post-comment-button" type="submit"  disabled={isPosting}>
+            {isPosting ? "Posting..." : "Post Comment"}
+          </button>
+        </form>
+  
+        {postSuccess && <p>Comment posted successfully!</p>}
+        {postError && <p>{postError}</p>}
+      </div>
+    );
+  }
+  
+
 
 export default ViewSingleArticle;
