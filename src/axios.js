@@ -21,6 +21,7 @@ export const votingOnArticles= async (id, value) => {
     return newsAPI.patch(`/articles/${id}`, {inc_votes: value})
 }
 
-export const userLogin = async (username) => {
-    return newsAPI.get('/users')
+export const postComment =  (id, data) => {
+    return newsAPI.post(`/articles/${id}/comments`, data)
+
 }
