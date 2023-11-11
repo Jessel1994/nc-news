@@ -55,6 +55,11 @@ function ArticleFinder({setArticleList, articleList}) {
                 
                 <Link to="/topics">Get Articles By Topic</Link>
             </form>
+            <div className="topic-buttons">
+                <Link to="/topics/cooking">Cooking</Link>
+                <Link to="/topics/technology">Technology</Link>
+                    {/* Add links for other topics as needed */}
+            </div>
         </div>
     )
 }
