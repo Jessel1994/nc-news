@@ -9,12 +9,15 @@ import { Link, Route, Routes } from "react-router-dom";
 import { useParams } from 'react-router-dom'
 
 
+
+
 function App() {
   let {article_id} = useParams()
   const [count, setCount] = useState(0)
 
   return (
-    <main>
+    
+       <main>
       <Header />
       <Routes>
         <Route path ='/' element ={<AllArticles />}/>
@@ -22,9 +25,12 @@ function App() {
         <Route path ='/articles/:article_id' element ={<ViewSingleArticle/>}/>
         <Route path="/topics" element={<TopicsPage />} />
         <Route path="/topics/:topic" element={<ArticlesByTopic />} />
+        
       </Routes>
       
     </main>
+    
+   
    
     
   )
