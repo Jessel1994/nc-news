@@ -28,7 +28,7 @@ function AllArticles() {
 }
 
 
-function ArticleFinder({setArticleList, articleList}) {
+export function ArticleFinder({setArticleList, articleList}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [userInput, setUserInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -53,21 +53,28 @@ function ArticleFinder({setArticleList, articleList}) {
                 <button>Search</button>
                 
                 
-                <Link to="/topics">Get Articles By Topic</Link>
+                
+
             </form>
+            <Link to="/topics">Go to Topics Page</Link>
+           
         </div>
     )
 }
 
 
 
-function ListArticles({articleList }) {
+export function ListArticles({articleList }) {
+    const { topic } = useParams()
+    const filteredArticles = topic
+    ? articleList.filter(article => article.topic === topic)
+    : articleList;
     return (
         <section className="show-articles">
             <h2>All Articles</h2>
             <ul className="articles-list">
                 
-                {articleList.map((article) => {
+                {filteredArticles.map((article) => {
                      const timestamp = article.created_at
                      const date = new Date(timestamp)
                      const options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
@@ -83,12 +90,14 @@ function ListArticles({articleList }) {
                                 <img className="article-image" src={article.article_img_url} alt="article picture"/>
                                 <p>Uploaded: {formattedDate}</p>
                                 <p>Author: {article.author}</p>
+                                <Link to={`/topics/${article.topic}`}>{article.topic}</Link>
                                 <Votes votes={article.votes} article_id={article.article_id}/>
 
                                 <p>Comments: {article.comment_count}</p>
                                 <Link className="read-article-button" to={`/articles/${article.article_id}`}>Read Article</Link>
 
                             </li>
+                            
 
                         </div>
                     )
